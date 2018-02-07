@@ -30,7 +30,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'code',
+    'workspace',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,6 +78,9 @@ WSGI_APPLICATION = 'arevel.wsgi.application'
 #     import pymysql
 #     pymysql.install_as_MySQLdb()
 
+import MySQLdb  # noqa: F401
+
+
 
 # [START db_setup]
 if IS_PROD:
@@ -85,11 +88,11 @@ if IS_PROD:
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'HOST': '/cloudsql/arevel-0:us-central1:areveldb',
-            'NAME': 'areveldb',
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/arevel-0:us-central1:arevel',
+            'NAME': 'arevel',
             'USER': 'arevelapp',
-            'PASSWORD': PSQL_PASS
+            'PASSWORD': MYSQL_PASS
         }
     }
 else:
@@ -101,11 +104,11 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
-            'PORT': '5432',
-            'NAME': 'areveldbtest',
-            'USER': 'feni',
+            'PORT': '3306',
+            'NAME': 'areveltest',
+            'USER': 'root',
             'PASSWORD': '',
         }
     }
