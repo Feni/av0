@@ -1,5 +1,7 @@
 import os
 from local_settings import *
+import os
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +44,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'arevel.middleware.LoggingMiddleware'
 )
 
 ROOT_URLCONF = 'arevel.urls'
@@ -101,6 +104,16 @@ if IS_PROD:
             'PASSWORD': MYSQL_PASS
         }
     }
+
+    INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
+
+    RAVEN_CONFIG = {
+        'dsn': 'https://cfe92cbbed2f428b99b73ccb9419dab0:b3c12a608d6349b09fae83a7868e84a7@sentry.io/296381',
+        # If you are using git, you can also automatically configure the
+        # release based on the git info.
+        'release': raven.fetch_git_sha(BASE_DIR),
+    }
+    
 
     # TODO: Cached template loader.
 
