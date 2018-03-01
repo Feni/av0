@@ -3,6 +3,7 @@ from local_settings import *
 import os
 import raven
 
+SITE_ID = 1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,6 +24,7 @@ DEBUG = not IS_PROD
 # See https://docs.djangoproject.com/en/1.10/ref/settings/
 ALLOWED_HOSTS = ['*']
 
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -32,6 +34,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',        
     'workspace',
 )
 
@@ -62,10 +70,18 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+                'django_settings_export.settings_export',                
             ],
         },
     },
 ]
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
@@ -73,6 +89,18 @@ STATICFILES_DIRS = [
 
 WSGI_APPLICATION = 'arevel.wsgi.application'
 
+# Settings available to template
+SETTINGS_EXPORT = [
+    'DEBUG',
+]
+
+#django all auth
+ACCOUNT_USERNAME_REQUIRED = False # Don't bother with usernames.
+ACCOUNT_EMAIL_REQUIRED = True  # Require email
+ACCOUNT_SESSION_REMEMBER = True # Always remember user
+
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -116,6 +144,16 @@ if IS_PROD:
     
 
     # TODO: Cached template loader.
+elif os.getenv('SETTINGS_MODE', '') == 'prod':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'INSTANCE': 'cloud-sql-instance-ip-address',
+            'NAME': 'database-name',
+            'USER': 'root',
+            'PASSWORD': 'password',
+        }
+    }
 
 else:
     # Development only configurations
