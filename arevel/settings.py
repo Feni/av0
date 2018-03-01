@@ -136,10 +136,7 @@ if IS_PROD:
     INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
 
     RAVEN_CONFIG = {
-        'dsn': 'https://cfe92cbbed2f428b99b73ccb9419dab0:b3c12a608d6349b09fae83a7868e84a7@sentry.io/296381',
-        # If you are using git, you can also automatically configure the
-        # release based on the git info.
-        'release': raven.fetch_git_sha(BASE_DIR),
+        'dsn': 'https://cfe92cbbed2f428b99b73ccb9419dab0:b3c12a608d6349b09fae83a7868e84a7@sentry.io/296381'
     }
     
 
