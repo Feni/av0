@@ -166,17 +166,20 @@ if IS_PROD:
     RAVEN_CONFIG = {
         'dsn': 'https://cfe92cbbed2f428b99b73ccb9419dab0:b3c12a608d6349b09fae83a7868e84a7@sentry.io/296381'
     }
-    
-
     # TODO: Cached template loader.
-elif os.getenv('SETTINGS_MODE', '') == 'prod':
+
+
+elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to prod from local for migrations.
+    # ./cloud_sql_proxy -instances=arevel-0:us-central1:arevel=tcp:3306
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'INSTANCE': 'cloud-sql-instance-ip-address',
-            'NAME': 'database-name',
-            'USER': 'root',
-            'PASSWORD': 'password',
+            'HOST': '127.0.0.1',
+            'PORT': 3306,
+            'NAME': 'areveldb',
+            'USER': 'arevelapp',
+            'PASSWORD': MYSQL_PASS,
         }
     }
 
