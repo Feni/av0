@@ -25,6 +25,22 @@ DEBUG = not IS_PROD
 ALLOWED_HOSTS = ['*']
 
 
+# SMTP isn't actually used. We use Sendgrid's rest email backend.
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'arevelapp'
+EMAIL_HOST_PASSWORD = SENDGRID_PASS
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# TODO: Later on split up arevel key from the key used for sending user emails
+SENDGRID_API_KEY=AREVEL_SENDGRID_KEY
+
+# Enable emails in local dev
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+DEFAULT_FROM_EMAIL = 'Arevel <arevelapp@gmail.com>'
 # Application definition
 
 INSTALLED_APPS = (
@@ -38,8 +54,9 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
-    'allauth.socialaccount.providers.google',        
+#    'allauth.socialaccount.providers.github',
+#    'allauth.socialaccount.providers.google',
+    'crispy_forms',
     'workspace',
 )
 
@@ -101,6 +118,17 @@ ACCOUNT_SESSION_REMEMBER = True # Always remember user
 
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+
+# TODO /workspace
+LOGIN_REDIRECT_URL="/"
+
+
+# Crispy forms
+# CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
