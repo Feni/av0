@@ -51,12 +51,19 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    # Django all auth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
 #    'allauth.socialaccount.providers.github',
 #    'allauth.socialaccount.providers.google',
+    # Django plans
+    'plans',
+    'ordered_model',
+    # Crispy
     'crispy_forms',
+
+    # Arevel apps
     'workspace',
 )
 
@@ -88,7 +95,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
-                'django_settings_export.settings_export',                
+                'django_settings_export.settings_export',
+                'plans.context_processors.account_status'
             ],
         },
     },
@@ -127,6 +135,29 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 # TODO /workspace
 LOGIN_REDIRECT_URL="/"
+
+
+# Django plans
+PLANS_CURRENCY = 'USD'
+DEFAULT_FROM_EMAIL = 'arevelapp@gmail.com'
+PLANS_INVOICE_LOGO_URL = "https://arevel.com/static/img/arevel_logo.png"
+
+
+PLANS_INVOICE_ISSUER = {
+    "issuer_name": "Arevel.com",
+    "issuer_street": "1709 Trustworthy Ct",
+    "issuer_zipcode": "78641",
+    "issuer_city": "Leander",
+    "issuer_country": "US",  # Must be a country code with 2 characters
+    # "issuer_tax_number": "1222233334444555",  # ??
+}
+
+# TODO - What should this be?
+PLANS_TAX = None
+
+# Set to stripe TEST keys. Only use live keys in production.
+STRIPE_PUBLIC_KEY = "pk_test_jW68axcBPVZ3Ao6Ja1JzjxqL"
+STRIPE_SECRET_KEY = "sk_test_QioJgIfrUBgvOV5kkVNGvVtm"
 
 
 # Crispy forms
@@ -169,6 +200,10 @@ if IS_PROD:
         'dsn': 'https://cfe92cbbed2f428b99b73ccb9419dab0:b3c12a608d6349b09fae83a7868e84a7@sentry.io/296381'
     }
     # TODO: Cached template loader.
+
+    # Warning! This should ONLY be enabled in production!
+    STRIPE_PUBLIC_KEY = STRIPE_LIVE_PUBLIC_KEY
+    STRIPE_SECRET_KEY = STRIPE_LIVE_SECRET_KEY
 
 
 elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to prod from local for migrations.
