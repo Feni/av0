@@ -3,6 +3,22 @@ from local_settings import *
 import os
 import raven
 
+
+# First, setup logging
+
+# Imports the Google Cloud client library
+import google.cloud.logging
+
+# Instantiates a client
+client = google.cloud.logging.Client()
+
+# Connects the logger to the root logging handler; by default this captures
+# all logs at INFO level and higher
+client.setup_logging()
+
+
+
+
 SITE_ID = 1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
