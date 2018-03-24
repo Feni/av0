@@ -4,17 +4,17 @@ import os
 import raven
 
 
-# First, setup logging
+# # First, setup logging
 
-# Imports the Google Cloud client library
-import google.cloud.logging
+# # Imports the Google Cloud client library
+# import google.cloud.logging
 
-# Instantiates a client
-client = google.cloud.logging.Client()
+# # Instantiates a client
+# client = google.cloud.logging.Client()
 
-# Connects the logger to the root logging handler; by default this captures
-# all logs at INFO level and higher
-client.setup_logging()
+# # Connects the logger to the root logging handler; by default this captures
+# # all logs at INFO level and higher
+# client.setup_logging()
 
 
 
