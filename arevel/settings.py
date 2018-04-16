@@ -1,5 +1,5 @@
 import os
-from local_settings import *
+from .local_settings import *
 import os
 import raven
 
