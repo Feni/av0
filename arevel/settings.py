@@ -203,7 +203,7 @@ import MySQLdb  # noqa: F401
 
 # Production only configurations
 if IS_PROD:
-    print "is prod"
+    print("is prod")
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
     DATABASES = {
@@ -244,7 +244,7 @@ elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to pro
 
 else:
     # Development only configurations
-    print "is dev"
+    print("is dev")
 
     # Running locally so connect to either a local MySQL instance or connect to
     # Cloud SQL via the proxy. To start the proxy via command line:
