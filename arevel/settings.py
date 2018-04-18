@@ -231,6 +231,7 @@ if IS_PROD:
 elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to prod from local for migrations.
     # ./cloud_sql_proxy -instances=arevel-0:us-central1:arevel=tcp:3306
 
+    # TODO: Postgres
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
