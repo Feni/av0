@@ -134,7 +134,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-STATIC_URL = os.environ.get('STATIC_URL', '/static')   # /static/ if DEBUG else Google Cloud bucket url
+STATIC_URL = os.environ.get('STATIC_URL', '/static/')   # /static/ if DEBUG else Google Cloud bucket url
 
 WSGI_APPLICATION = 'arevel.wsgi.application'
 
@@ -225,7 +225,7 @@ if IS_PROD:
             'HOST': '/cloudsql/arevel-0:us-central1:arevelpg',
             'NAME': 'areveldb',
             'USER': 'arevelapp',
-             'PASSWORD': MYSQL_PASS
+             'PASSWORD': PG_PASS
          }
     }
 
@@ -255,7 +255,6 @@ elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to pro
     #     }
     # }
 
-    # TODO: Postgres
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -263,7 +262,7 @@ elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to pro
             'PORT': 3306,
             'NAME': 'areveldb',
             'USER': 'arevelapp',
-            'PASSWORD': MYSQL_PASS
+            'PASSWORD': PG_PASS
          }
     }
 
@@ -280,11 +279,11 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'HOST': '127.0.0.1',
-            'PORT': '3306',
-            'NAME': 'areveltest',
-            'USER': 'root',
+            'PORT': '5432',
+            'NAME': 'areveldbtest',
+            'USER': 'postgres',
             'PASSWORD': '',
         }
     }
