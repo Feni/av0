@@ -29,7 +29,7 @@ SITE_ID = 1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-IS_PROD = os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine')
+IS_PROD = os.getenv('GAE_INSTANCE', '') != ''  # App engine flexible
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -38,7 +38,7 @@ IS_PROD = os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine')
 SECRET_KEY = PROD_SECRET
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = not IS_PROD
+DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
@@ -134,6 +134,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+STATIC_URL = os.environ.get('STATIC_URL', '/static')   # /static/ if DEBUG else Google Cloud bucket url
+
 WSGI_APPLICATION = 'arevel.wsgi.application'
 
 # Settings available to template
@@ -203,6 +205,7 @@ import MySQLdb  # noqa: F401
 
 # Production only configurations
 if IS_PROD:
+    DEBUG = False
     print("is prod")
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
@@ -283,4 +286,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_ROOT = 'dist/static'
-STATIC_URL = '/static/'
