@@ -44,6 +44,7 @@ DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
 # app not on App Engine, make sure to set an appropriate host here.
 # See https://docs.djangoproject.com/en/1.10/ref/settings/
+# TODO
 ALLOWED_HOSTS = ['*']
 
 
@@ -74,14 +75,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     # Django all auth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount',
 #    'allauth.socialaccount.providers.github',
 #    'allauth.socialaccount.providers.google',
     # Django plans
-    'plans',
-    'ordered_model',
+    #'plans',
+    #'ordered_model',
     # Crispy
     'crispy_forms',
 
@@ -118,7 +119,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
                 'django_settings_export.settings_export',
-                'plans.context_processors.account_status'
+#                'plans.context_processors.account_status'
             ],
         },
     },
@@ -127,14 +128,16 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+#    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-STATIC_URL = os.environ.get('STATIC_URL', '/static/')   # /static/ if DEBUG else Google Cloud bucket url
+# STATIC_URL = os.environ.get('STATIC_URL', '/static/')   # /static/ if DEBUG else Google Cloud bucket url
+STATIC_URL = 'https://storage.googleapis.com/arevel-0.appspot.com/static/'
+MEDIA_URL = 'https://storage.googleapis.com/arevel-0.appspot.com/media/'
 
 WSGI_APPLICATION = 'arevel.wsgi.application'
 
@@ -200,7 +203,7 @@ STRIPE_SECRET_KEY = "sk_test_QioJgIfrUBgvOV5kkVNGvVtm"
 #     import pymysql
 #     pymysql.install_as_MySQLdb()
 
-import MySQLdb  # noqa: F401
+# import MySQLdb  # noqa: F401
 
 
 # Production only configurations
