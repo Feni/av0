@@ -137,8 +137,9 @@ STATICFILES_DIRS = [
 ]
 
 # STATIC_URL = os.environ.get('STATIC_URL', '/static/')   # /static/ if DEBUG else Google Cloud bucket url
-STATIC_URL = 'https://storage.googleapis.com/arevel-0.appspot.com/static/'
-MEDIA_URL = 'https://storage.googleapis.com/arevel-0.appspot.com/media/'
+STATIC_URL = 'https://storage.googleapis.com/arevel-209217.appspot.com/static/'
+MEDIA_URL = 'https://storage.googleapis.com/arevel-209217.appspot.com/media/'
+
 
 WSGI_APPLICATION = 'arevel.wsgi.application'
 
