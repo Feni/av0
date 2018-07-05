@@ -7,9 +7,9 @@ import raven
 # # First, setup logging
 
 # Log everything to file
-import logging
-import sys
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+# import logging
+# import sys
+# logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 # Google cloud logger is broken for some reason...
 # # Imports the Google Cloud client library
@@ -29,7 +29,8 @@ SITE_ID = 1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-IS_PROD = os.getenv('GAE_INSTANCE', '') != ''  # App engine flexible
+# IS_PROD = os.getenv('GAE_INSTANCE', '') != ''  # App engine flexible
+IS_PROD = os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
