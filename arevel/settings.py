@@ -212,25 +212,25 @@ if IS_PROD:
     print("is prod")
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.mysql',
-    #         'HOST': '/cloudsql/arevel-0:us-central1:arevel',
-    #         'NAME': 'areveldb',
-    #         'USER': 'arevelapp',
-    #         'PASSWORD': MYSQL_PASS
-    #     }
-    # }
-
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'HOST': '/cloudsql/arevel-0:us-central1:arevelpg',
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/arevel-209217:us-central1:arevelsql',
             'NAME': 'areveldb',
             'USER': 'arevelapp',
-             'PASSWORD': PG_PASS
-         }
+            'PASSWORD': MYSQL_PASS
+        }
     }
+
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'HOST': '/cloudsql/arevel-0:us-central1:arevelpg',
+    #         'NAME': 'areveldb',
+    #         'USER': 'arevelapp',
+    #          'PASSWORD': PG_PASS
+    #      }
+    # }
 
     INSTALLED_APPS += ('raven.contrib.django.raven_compat',)
 
@@ -247,27 +247,27 @@ if IS_PROD:
 elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to prod from local for migrations.
     # ./cloud_sql_proxy -instances=arevel-0:us-central1:arevel=tcp:3306
     #
-    # DATABASES = {
-    #     'default': {
-    #         'ENGINE': 'django.db.backends.mysql',
-    #         'HOST': '127.0.0.1',
-    #         'PORT': 3306,
-    #         'NAME': 'areveldb',
-    #         'USER': 'arevelapp',
-    #         'PASSWORD': MYSQL_PASS,
-    #     }
-    # }
-
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
             'PORT': 3306,
             'NAME': 'areveldb',
             'USER': 'arevelapp',
-            'PASSWORD': PG_PASS
-         }
+            'PASSWORD': MYSQL_PASS,
+        }
     }
+
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #         'HOST': '127.0.0.1',
+    #         'PORT': 3306,
+    #         'NAME': 'areveldb',
+    #         'USER': 'arevelapp',
+    #         'PASSWORD': PG_PASS
+    #      }
+    # }
 
 
 else:
@@ -282,14 +282,15 @@ else:
     # See https://cloud.google.com/sql/docs/mysql-connect-proxy
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.mysql',
             'HOST': '127.0.0.1',
-            'PORT': '5432',
-            'NAME': 'areveldbtest',
-            'USER': 'postgres',
-            'PASSWORD': '',
+            'PORT': 3306,
+            'NAME': 'areveltest',
+            'USER': 'arevelapp',
+            'PASSWORD': MYSQL_PASS,
         }
     }
+
 # [END db_setup]
 
 # Internationalization
