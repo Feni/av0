@@ -1,4 +1,7 @@
 import os
+
+from django.contrib import messages
+
 from .local_settings import *
 import os
 import raven
@@ -135,6 +138,10 @@ AUTHENTICATION_BACKENDS = (
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
 
 if DEBUG:
     STATIC_URL = os.environ.get('STATIC_URL', '/static/')   # /static/ if DEBUG else Google Cloud bucket url
