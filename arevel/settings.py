@@ -58,8 +58,9 @@ EMAIL_USE_TLS = True
 
 
 EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
 # TODO: Later on split up arevel key from the key used for sending user emails
-SENDGRID_API_KEY=AREVEL_SENDGRID_KEY
+SENDGRID_API_KEY = AREVEL_SENDGRID_KEY
 
 # Enable emails in local dev
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
@@ -75,19 +76,18 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
     # Django all auth
-    #'allauth',
-    #'allauth.account',
-    #'allauth.socialaccount',
-#    'allauth.socialaccount.providers.github',
-#    'allauth.socialaccount.providers.google',
-    # Django plans
-    #'plans',
-    #'ordered_model',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     # Crispy
     'crispy_forms',
 
     # Arevel apps
+    'arevelcore',
     'workspace',
 )
 
@@ -104,6 +104,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'arevel.urls'
+AUTH_USER_MODEL = 'arevelcore.ArevelUser'
 
 TEMPLATES = [
     {
@@ -120,7 +121,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
                 'django_settings_export.settings_export',
-#                'plans.context_processors.account_status'
             ],
         },
     },
@@ -151,11 +151,11 @@ SETTINGS_EXPORT = [
 ]
 
 #django all auth
-ACCOUNT_USERNAME_REQUIRED = False # Don't bother with usernames.
-ACCOUNT_EMAIL_REQUIRED = True  # Require email
-ACCOUNT_SESSION_REMEMBER = True # Always remember user
+ACCOUNT_USERNAME_REQUIRED = False   # Don't bother with usernames.
+ACCOUNT_EMAIL_REQUIRED = True       # Require email
+ACCOUNT_SESSION_REMEMBER = True     # Always remember user
 
-ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
@@ -164,27 +164,15 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 
-# TODO /workspace
-LOGIN_REDIRECT_URL="/"
-
-
-# Django plans
-PLANS_CURRENCY = 'USD'
-DEFAULT_FROM_EMAIL = 'arevelapp@gmail.com'
-PLANS_INVOICE_LOGO_URL = "https://arevel.com/static/img/arevel_logo.png"
-
-
-PLANS_INVOICE_ISSUER = {
-    "issuer_name": "Arevel.com",
-    "issuer_street": "1709 Trustworthy Ct",
-    "issuer_zipcode": "78641",
-    "issuer_city": "Leander",
-    "issuer_country": "US",  # Must be a country code with 2 characters
-    # "issuer_tax_number": "1222233334444555",  # ??
+ACCOUNT_FORMS = {
+    'signup': 'arevelcore.forms.ArevelSignupForm',
 }
 
-# TODO - What should this be?
-PLANS_TAX = None
+
+# TODO /workspace
+LOGIN_REDIRECT_URL = "/"
+
+
 
 # Set to stripe TEST keys. Only use live keys in production.
 STRIPE_PUBLIC_KEY = "pk_test_jW68axcBPVZ3Ao6Ja1JzjxqL"
@@ -192,7 +180,7 @@ STRIPE_SECRET_KEY = "sk_test_QioJgIfrUBgvOV5kkVNGvVtm"
 
 
 # Crispy forms
-# CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
