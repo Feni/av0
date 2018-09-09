@@ -179,8 +179,7 @@ ACCOUNT_FORMS = {
 }
 
 
-# TODO /workspace
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/docs/latest"
 
 
 
@@ -220,7 +219,10 @@ if IS_PROD:
             'HOST': '/cloudsql/arevel-209217:us-central1:arevelsql',
             'NAME': 'areveldb',
             'USER': 'arevelapp',
-            'PASSWORD': MYSQL_PASS
+            'PASSWORD': MYSQL_PASS,
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
         }
     }
 
@@ -257,6 +259,9 @@ elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to pro
             'NAME': 'areveldb',
             'USER': 'arevelapp',
             'PASSWORD': MYSQL_PASS,
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
         }
     }
 
@@ -290,6 +295,9 @@ else:
             'NAME': 'areveltest',
             'USER': 'arevelapp',
             'PASSWORD': MYSQL_PASS,
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+            },
         }
     }
 
