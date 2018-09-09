@@ -10,9 +10,9 @@ import raven
 # # First, setup logging
 
 # Log everything to file
-# import logging
-# import sys
-# logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+import logging
+import sys
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 # Google cloud logger is broken for some reason...
 # # Imports the Google Cloud client library
