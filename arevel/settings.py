@@ -80,6 +80,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    # json field
+    'django_mysql',
+
     # Django all auth
     'allauth',
     'allauth.account',
