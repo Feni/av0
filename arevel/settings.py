@@ -107,7 +107,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'arevel.middleware.LoggingMiddleware'
+
+    'arevelcore.middleware.IdentifierMiddleware',
+    'arevelcore.middleware.LoggingMiddleware'
 )
 
 ROOT_URLCONF = 'arevel.urls'
@@ -183,6 +185,9 @@ ACCOUNT_FORMS = {
 LOGIN_REDIRECT_URL = "/docs/latest"
 
 
+# Django session age = 90 days.
+SESSION_COOKIE_AGE = 7776000
+
 
 # Set to stripe TEST keys. Only use live keys in production.
 STRIPE_PUBLIC_KEY = "pk_test_jW68axcBPVZ3Ao6Ja1JzjxqL"
@@ -191,6 +196,11 @@ STRIPE_SECRET_KEY = "sk_test_QioJgIfrUBgvOV5kkVNGvVtm"
 
 # Crispy forms
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+
+# Dev Key
+AMPLITUDE_KEY = "b9e1638dfa8bca4f6e948723fdc322ab"
+
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -226,6 +236,8 @@ if IS_PROD:
             },
         }
     }
+
+    AMPLITUDE_KEY = LIVE_AMPLITUDE_KEY
 
     # DATABASES = {
     #     'default': {
