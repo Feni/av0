@@ -230,10 +230,7 @@ if IS_PROD:
             'HOST': '/cloudsql/arevel-209217:us-central1:arevelsql',
             'NAME': 'areveldb',
             'USER': 'arevelapp',
-            'PASSWORD': MYSQL_PASS,
-            'OPTIONS': {
-                'charset': 'utf8mb4',
-            },
+            'PASSWORD': MYSQL_PASS
         }
     }
 
@@ -263,7 +260,9 @@ if IS_PROD:
 
 elif os.getenv('SETTINGS_MODE', '') == 'proxyprod':      # Use to connect to prod from local for migrations.
     # ./cloud_sql_proxy -instances=arevel-0:us-central1:arevel=tcp:3306
-    #
+    print "Warning: PROD PROXY MODE!!!!"
+
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
